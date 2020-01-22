@@ -1,6 +1,4 @@
-
-const BUTTON_OK = 0
-const BUTTON_CONFIRM = 1
+/** Created by Daniel Moxon @ https://github.com/dcmox/jsalerts **/
 
 const scrollKeys = {37: 1, 38: 1, 39: 1, 40: 1};
 
@@ -35,6 +33,28 @@ const animateDiv = (div) => {
     }, 5)
 }
 
+const handleKeyUp = (e, onConfirm, onCancel, target, div) => {
+    if(e.which === 13 || e.which === 27) {
+        target.remove()
+        if (!document.querySelector('jsalert')) { enableScroll() }
+        if (e.which === 13) {
+            if (typeof onConfirm === 'function') { onConfirm(div.querySelector('input') ? div.querySelector('input').value : e) }
+        } else {
+            if (typeof onCancel === 'function') { onCancel() }
+        }
+    }
+}
+
+const handleBtnClick = (e, onConfirm, onCancel, target, div) => {
+    if (e.target.innerHTML === 'Cancel') { 
+        if (typeof onCancel == 'function') { onCancel() }
+    } else {
+        if (typeof onConfirm == 'function') { onConfirm(div.querySelector('input') ? div.querySelector('input').value : e) }
+    }
+    target.remove()
+    if (!document.querySelector('jsalert')) { enableScroll() }
+}
+
 window.alert = (message, title, onConfirm = null) => {
     let div = document.createElement('div')
     div.className = 'jsalert'
@@ -60,28 +80,6 @@ window.alert = (message, title, onConfirm = null) => {
     }
 }
 
-const handleKeyUp = (e, onConfirm, onCancel, target, div) => {
-    if(e.which === 13 || e.which === 27) {
-        target.remove()
-        if (!document.querySelector('jsalert')) { enableScroll() }
-        if (e.which === 13) {
-            if (typeof onConfirm === 'function') { onConfirm(div.querySelector('input') ? div.querySelector('input').value : e) }
-        } else {
-            if (typeof onCancel === 'function') { onCancel() }
-        }
-    }
-}
-
-const handleBtnClick = (e, onConfirm, onCancel, target, div) => {
-    if (e.target.innerHTML === 'Cancel') { 
-        if (typeof onCancel == 'function') { onCancel() }
-    } else {
-        if (typeof onConfirm == 'function') { onConfirm(div.querySelector('input') ? div.querySelector('input').value : e) }
-    }
-    target.remove()
-    if (!document.querySelector('jsalert')) { enableScroll() }
-}
-
 window.confirm = (message, title, onConfirm = null, onCancel = null) => {
     let div = document.createElement('div')
     div.className = 'jsalert'
@@ -100,7 +98,6 @@ window.confirm = (message, title, onConfirm = null, onCancel = null) => {
         btn.onclick = (e) => handleBtnClick(e, onConfirm, onCancel, e.target.parentElement.parentElement)
     })
 }
-
 
 window.prompt = (title, defaultText = '', onConfirm = null, onCancel = null) => {
     let div = document.createElement('div')

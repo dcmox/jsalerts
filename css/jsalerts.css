@@ -16,10 +16,6 @@
 }
 .jsalert:focus { outline: none; }
 
-.jsalert.visible{
-    opacity: 1;
-}
-
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
