@@ -42,3 +42,6 @@ You provide a callback instead, such as:
 
 ## Customization
 You can customize the style of JSAlerts via the jsalerts.css file.
+
+## Todo 
+* Add support for popup(`html goes here`, width, height) to allow custom HTML popups.
